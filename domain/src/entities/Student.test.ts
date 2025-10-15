@@ -54,7 +54,7 @@ describe("Student Entity", () => {
 
   it("should throw error if payment studentId does not match", () => {
     const student = new Student("sId1", "uId1", new Date("2000-01-01"), "WHITE");
-    const payment = new Payment("pay2", "sId2", 100, new Date("2025-10-01"), "PENDING", 10, 2025);
+    const payment = new Payment("payId2", "sId2", 100, new Date("2025-10-01"), "PENDING", 10, 2025);
 
     expect(() => student.addPayment(payment)).toThrowError(
       "Payment studentId does not match this student"

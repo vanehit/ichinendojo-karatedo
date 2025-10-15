@@ -4,7 +4,7 @@ import { Payment, type PaymentStatus } from "./Payment.js";
 describe("Payment Entity", () => {
   it("should create a payment with correct properties", () => {
     const payment = new Payment(
-      "pay1",
+      "payId1",
       "sId1",
       100,
       new Date("2025-10-01"),
@@ -13,7 +13,7 @@ describe("Payment Entity", () => {
       2025
     );
 
-    expect(payment.id).toBe("pay1");
+    expect(payment.id).toBe("payId1");
     expect(payment.studentId).toBe("sId1");
     expect(payment.amount).toBe(100);
     expect(payment.date).toEqual(new Date("2025-10-01"));

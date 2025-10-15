@@ -5,14 +5,14 @@ import { PaymentService } from "../services/PaymentService.js";
 
 describe("PaymentService", () => {
   it("Returns 0 if the student has no payments.", () => {
-    const student = new Student("1", "user-1", new Date(), "WHITE");
+    const student = new Student("1", "uId1", new Date(), "WHITE");
 
     const debt = PaymentService.calculateDebt(student);
     expect(debt).toBe(0);
   });
 
   it("Sums the pending or overdue payments.", () => {
-    const student = new Student("1", "user-1", new Date(), "WHITE");
+    const student = new Student("1", "uId1", new Date(), "WHITE");
 
     const pId1 = new Payment("pId1", student.id, 1000, new Date(), "PENDING", 9, 2025);
     const pId2 = new Payment("pId2", student.id, 1200, new Date(), "LATE", 8, 2025);
@@ -25,7 +25,7 @@ describe("PaymentService", () => {
   });
 
   it("Ignores payments that are in PAID status.", () => {
-    const student = new Student("1", "user-1", new Date(), "WHITE");
+    const student = new Student("1", "uId1", new Date(), "WHITE");
 
     const pId1 = new Payment("pId1", student.id, 1000, new Date(), "PENDING", 9, 2025);
     const pId2 = new Payment("pId2", student.id, 1500, new Date(), "PAID", 7, 2025);
@@ -34,6 +34,6 @@ describe("PaymentService", () => {
     student.addPayment(pId2);
 
     const debt = PaymentService.calculateDebt(student);
-    expect(debt).toBe(1000); // solo cuenta el PENDING
+    expect(debt).toBe(1000); 
   });
 });

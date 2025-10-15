@@ -7,7 +7,7 @@ import type { Promotion } from "./Promotion.js";
 
 export class Student {
   public promotions: Promotion[] = [];
-  public payments: Payment[] = [];
+  public payments: Payment[] = [];//inicializado payment
   public createdAt: Date;
 
   constructor(
