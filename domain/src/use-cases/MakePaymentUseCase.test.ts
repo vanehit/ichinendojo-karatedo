@@ -10,7 +10,7 @@ describe("MakePaymentUseCase", () => {
 
     const useCase = new MakePaymentUseCase();
     const updatedStudent = useCase.execute(student, payment);
-
+   
     expect(updatedStudent.payments).toHaveLength(1);
     expect(updatedStudent.payments[0].amount).toBe(1000);
     expect(updatedStudent.payments[0].status).toBe("PENDING");

@@ -1,0 +1,1 @@
+{"version":3,"file":"PromoteStudentUseCase.d.ts","sourceRoot":"","sources":["PromoteStudentUseCase.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,0BAA0B,CAAC;AACrD,OAAO,EAAE,OAAO,EAAE,MAAM,wBAAwB,CAAC;AAGjD,qBAAa,qBAAqB;IAChC,OAAO,CAAC,OAAO,EAAE,OAAO,EAAE,SAAS,EAAE,SAAS,GAAG,OAAO;CAWzD"}
