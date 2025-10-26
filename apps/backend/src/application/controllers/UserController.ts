@@ -1,67 +1,93 @@
-import { Request, Response } from "express";
-import { UserModel } from "../../infrastructure/database/models/User";
+import { MongoUserRepository } from "../../infrastructure/repositories/MongoUserRepository.js";
+import { 
+  RegisterUserUseCase,
+  GetUsersUseCase,
+  GetUserByIdUseCase,
+  UpdateUserUseCase,
+  DeleteUserUseCase
+} from "../../../../../domain/src/use-cases/index.js";
+import type { Request, Response } from "express";
 
+const userRepo = new MongoUserRepository();
 
 export class UserController {
-  // Obtener todos los usuarios
-  static async getUsers(req: Request, res: Response) {
-    try {
-      const users = await UserModel.find();
-      res.json(users);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: "Error fetching users" });
-    }
-  }
-
-  // Registrar usuario
   static async registerUser(req: Request, res: Response) {
     try {
-      const newUser = new UserModel(req.body);
-      await newUser.save();
+      const { name, email, password } = req.body;
+
+      if (!name || !email || !password) {
+        return res.status(400).json({ message: "Todos los campos son obligatorios." });
+      }
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return res.status(400).json({ message: "El formato del correo no es válido." });
+      }
+
+      if (password.length < 6) {
+        return res.status(400).json({ message: "La contraseña debe tener al menos 6 caracteres." });
+      }
+
+      const useCase = new RegisterUserUseCase(userRepo);
+      const newUser = await useCase.execute({ name, email, password });
+
       res.status(201).json(newUser);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: "Error registering user" });
+    } catch (error: any) {
+      console.error("❌ Error en registerUser:", error);
+      res.status(400).json({ message: error.message || "Error al registrar usuario." });
     }
   }
 
-  // Obtener usuario por ID
+  static async getUsers(req: Request, res: Response) {
+    try {
+      const useCase = new GetUsersUseCase(userRepo);
+      const users = await useCase.execute();
+      res.json(users);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+
   static async getUserById(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const user = await UserModel.findById(id);
+      if (!id) return res.status(400).json({ message: "User id is required" });
+
+      const useCase = new GetUserByIdUseCase(userRepo);
+      const user = await useCase.execute(id);
+
       if (!user) return res.status(404).json({ message: "User not found" });
       res.json(user);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: "Error fetching user" });
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
     }
   }
 
-  // Actualizar usuario
   static async updateUser(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const updatedUser = await UserModel.findByIdAndUpdate(id, req.body, { new: true });
-      if (!updatedUser) return res.status(404).json({ message: "User not found" });
-      res.json(updatedUser);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: "Error updating user" });
+      if (!id) return res.status(400).json({ message: "User id is required" });
+
+      const useCase = new UpdateUserUseCase(userRepo);
+      const updated = await useCase.execute(id, req.body);
+
+      if (!updated) return res.status(404).json({ message: "User not found" });
+      res.json(updated);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
     }
   }
 
-  // Eliminar usuario
   static async deleteUser(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const deletedUser = await UserModel.findByIdAndDelete(id);
-      if (!deletedUser) return res.status(404).json({ message: "User not found" });
+      if (!id) return res.status(400).json({ message: "User id is required" });
+
+      const useCase = new DeleteUserUseCase(userRepo);
+      await useCase.execute(id);
+
       res.json({ message: "User deleted successfully" });
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: "Error deleting user" });
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
     }
   }
 }

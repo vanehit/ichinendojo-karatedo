@@ -1,5 +1,6 @@
 export type BeltLevel = 
   | "WHITE"
+  | "LIGHTBLUE"
   | "YELLOW"
   | "ORANGE"
   | "GREEN"
@@ -7,9 +8,9 @@ export type BeltLevel =
   | "BROWN"
   | "BLACK";
 
-//niveles para el uso de las validaciones en "student" y "promotion"
 export const BELT_LEVELS: BeltLevel[] = [
   "WHITE",
+  "LIGHTBLUE",
   "YELLOW",
   "ORANGE",
   "GREEN",
@@ -18,7 +19,6 @@ export const BELT_LEVELS: BeltLevel[] = [
   "BLACK"
 ];
 
-// Función helper opcional para validar
 export function isValidBeltLevel(belt: string): belt is BeltLevel {
   return BELT_LEVELS.includes(belt as BeltLevel);
 }

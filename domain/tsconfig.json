@@ -3,11 +3,14 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "../dist/domain",
-    "declaration": true,       
+     "types": ["node"],
+    "declaration": true,
     "strict": true,
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-     "composite": true
+    "composite": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "**/*.test.ts"]

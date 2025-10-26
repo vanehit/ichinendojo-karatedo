@@ -1,43 +1,38 @@
-import { Request, Response } from "express";
-import { StudentModel } from "../../infrastructure/database/models/Student";
-import { PromotionRepository } from "../repositories/PromotionRepository";
+import { StudentModel } from "../../infrastructure/database/models/Student.js";
+import { MongoPromotionRepository } from "../../infrastructure/repositories/MongoPromotionRepository.js";
+import { Promotion } from "../../../../../domain/src/entities/Promotion.js";
+import type { Request, Response } from "express";
 
-const promotionRepository = new PromotionRepository();
+const promotionRepository = new MongoPromotionRepository();
 
 export class PromotionController {
-
-  // Crear una nueva promoción para un estudiante
   static async promoteStudent(req: Request, res: Response) {
     try {
-      const { id } = req.params; // id del estudiante
+      const { id } = req.params;
       const { oldBelt, newBelt, examDate } = req.body;
 
       const student = await StudentModel.findById(id);
-      if (!student) {
-        return res.status(404).json({ message: "Student not found" });
-      }
+      if (!student) return res.status(404).json({ message: "Student not found" });
 
-      const promotion = await promotionRepository.create({
-        studentId: student.id.toString(),
-        oldBelt,
-        newBelt,
-        examDate,
-      });
+      const promotion = new Promotion(student.id.toString(), oldBelt, newBelt, new Date(examDate));
+
+      const savedPromotion = await promotionRepository.create(promotion);
 
       student.belt = newBelt;
       await student.save();
 
-      return res.status(201).json(promotion);
+      return res.status(201).json(savedPromotion);
     } catch (err) {
       console.error("Error promoting student:", err);
       return res.status(500).json({ message: "Error promoting student" });
     }
   }
 
-  // Obtener todas las promociones de un estudiante
   static async getPromotions(req: Request, res: Response) {
     try {
-      const { id } = req.params; // id del estudiante
+      const { id } = req.params;
+      if (!id) return res.status(400).json({ message: "Missing student ID" });
+
       const promotions = await promotionRepository.findByStudentId(id);
       res.json(promotions);
     } catch (err) {

@@ -15,13 +15,11 @@ export class Payment {
     this.validateStatus(status);
     this.validateMonth(month);
     this.validateAmount(amount);
-
     this.createdAt = new Date();
   }
 
   private validateStatus(status: PaymentStatus) {
-    const validStatuses: PaymentStatus[] = ["PENDING", "PAID", "LATE"];
-    if (!validStatuses.includes(status)) {
+    if (!["PENDING", "PAID", "LATE"].includes(status)) {
       throw new Error(`Invalid payment status: ${status}`);
     }
   }
@@ -38,7 +36,6 @@ export class Payment {
     }
   }
 
-  // Método para cambiar estado
   updateStatus(newStatus: PaymentStatus) {
     this.validateStatus(newStatus);
     this.status = newStatus;

@@ -1,16 +1,30 @@
-import { type BeltLevel } from "../entities/BeltLevel.js";
 import { Student } from "../entities/Student.js";
+import type { IStudentRepository } from "../repositories/IStudentRepository.js";
+import type { BeltLevel } from "../entities/BeltLevel.js";
+import { randomUUID } from "crypto";
 
 
 export class RegisterStudentUseCase {
-  execute(data: {
-    id: string;
+  constructor(private studentRepo: IStudentRepository) {}
+
+  async execute(data: {
+    name: string;
+    email: string;
+    birthDate: string;
     userId: string;
-    birthDate: Date;
     belt?: BeltLevel;
     phone?: string;
-  }): Student {
-    const belt = data.belt || "WHITE"; //Default belt
-    return new Student(data.id, data.userId, data.birthDate, belt, data.phone);
+  }): Promise<Student> {
+    const student = new Student(
+      randomUUID(),           
+      data.name,                     
+      data.email,                    
+      data.userId,                   
+      new Date(data.birthDate),      
+      data.belt ?? "WHITE",         
+      data.phone                     
+    );
+
+    return this.studentRepo.create(student);
   }
 }

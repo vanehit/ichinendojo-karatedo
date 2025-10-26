@@ -1,7 +1,6 @@
 import { Promotion } from "../entities/Promotion.js";
 import { Student } from "../entities/Student.js";
 
-
 export class PromoteStudentUseCase {
   execute(student: Student, promotion: Promotion): Student {
     if (promotion.oldBelt !== student.belt) {

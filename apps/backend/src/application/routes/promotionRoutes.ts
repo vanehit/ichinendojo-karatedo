@@ -1,10 +1,8 @@
 import { Router } from "express";
-import { PromotionController } from "../controllers/PromotionController";
+import { PromotionController } from "../controllers/PromotionController.js";
 
 export const promotionRouter = Router({ mergeParams: true });
 
-// Obtener todas las promociones de un estudiante
+// Rutas de promociones de un estudiante específico
 promotionRouter.get("/", PromotionController.getPromotions);
-
-// Crear una promoción para un estudiante
 promotionRouter.post("/", PromotionController.promoteStudent);
