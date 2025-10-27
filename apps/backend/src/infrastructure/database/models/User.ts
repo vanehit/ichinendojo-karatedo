@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
-import type { UserRole } from "../../../../../../domain/src/entities/User.js";
+import type { UserRole } from "../../../../../../domain/src/entities/users/User.js";
 
 export interface IUser extends Document {
   _id: string;

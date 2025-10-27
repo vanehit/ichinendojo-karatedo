@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import MongoConnectDB from './infrastructure/database/connectDB.js';
-import { router } from "./application/routes/index.js";
+import MongoConnectDB from "../src/infrastructure/database/connectDB.js";
+import { router } from "../src/application/routes/index.js";
 
 dotenv.config();
 

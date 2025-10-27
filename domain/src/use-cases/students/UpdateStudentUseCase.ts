@@ -1,0 +1,11 @@
+// src/domain/usecases/students/UpdateStudentUseCase.ts
+import { Student } from "../../entities/students/Student.js";
+import type { IStudentRepository } from "../../repositories/IStudentRepository.js";
+
+export class UpdateStudentUseCase {
+  constructor(private studentRepository: IStudentRepository) {}
+
+  async execute(student: Student): Promise<Student> {
+    return this.studentRepository.update(student);
+  }
+}

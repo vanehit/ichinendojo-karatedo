@@ -1,5 +1,3 @@
-export * from "./User.js";
-export * from "./Student.js";
-export * from "./Payment.js";
-export * from "./Promotion.js";
-export * from "./BeltLevel.js";
+export * from "./users/User.js";
+export * from "./students/Student.js";
+

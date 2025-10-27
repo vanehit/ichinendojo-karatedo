@@ -1,11 +1,12 @@
+// src/application/controllers/StudentController.ts
 import type { Request, Response } from "express";
 import { MongoStudentRepository } from "../../infrastructure/repositories/MongoStudentRepository.js";
-import { 
+import {
   RegisterStudentUseCase,
   GetStudentsUseCase,
   GetStudentByIdUseCase,
   UpdateStudentUseCase,
-  DeleteStudentUseCase
+  DeleteStudentUseCase,
 } from "../../../../../domain/src/use-cases/index.js";
 
 const studentRepo = new MongoStudentRepository();
@@ -13,14 +14,16 @@ const studentRepo = new MongoStudentRepository();
 export class StudentController {
   static async register(req: Request, res: Response) {
     try {
-      const { name, email, userId, birthDate } = req.body;
+      const { name, email, userId, birthDate, belt, phone } = req.body;
 
       if (!name || !email || !userId || !birthDate) {
-        return res.status(400).json({ message: "name, email, userId y birthDate son requeridos" });
+        return res
+          .status(400)
+          .json({ message: "name, email, userId y birthDate son requeridos" });
       }
 
       const useCase = new RegisterStudentUseCase(studentRepo);
-      const student = await useCase.execute(req.body);
+      const student = await useCase.execute({ name, email, userId, birthDate, belt, phone });
 
       res.status(201).json(student);
     } catch (error: any) {
@@ -40,11 +43,12 @@ export class StudentController {
 
   static async getStudentById(req: Request, res: Response) {
     try {
-      const { id } = req.params;
-      if (!id) return res.status(400).json({ message: "Student id is required" });
+      const { studentId } = req.params;
+      if (!studentId)
+        return res.status(400).json({ message: "Student id is required" });
 
       const useCase = new GetStudentByIdUseCase(studentRepo);
-      const student = await useCase.execute(id);
+      const student = await useCase.execute(studentId);
 
       if (!student) return res.status(404).json({ message: "Student not found" });
       res.json(student);
@@ -55,11 +59,12 @@ export class StudentController {
 
   static async updateStudent(req: Request, res: Response) {
     try {
-      const { id } = req.params;
-      if (!id) return res.status(400).json({ message: "Student id is required" });
+      const { studentId } = req.params;
+      if (!studentId)
+        return res.status(400).json({ message: "Student id is required" });
 
       const useCase = new UpdateStudentUseCase(studentRepo);
-      const updated = await useCase.execute({ ...req.body, id });
+      const updated = await useCase.execute({ ...req.body, id: studentId });
 
       res.json(updated);
     } catch (error: any) {
@@ -69,11 +74,12 @@ export class StudentController {
 
   static async deleteStudent(req: Request, res: Response) {
     try {
-      const { id } = req.params;
-      if (!id) return res.status(400).json({ message: "Student id is required" });
+      const { studentId } = req.params;
+      if (!studentId)
+        return res.status(400).json({ message: "Student id is required" });
 
       const useCase = new DeleteStudentUseCase(studentRepo);
-      await useCase.execute(id);
+      await useCase.execute(studentId);
 
       res.json({ message: "Student deleted successfully" });
     } catch (error: any) {

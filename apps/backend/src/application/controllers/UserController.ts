@@ -13,7 +13,7 @@ const userRepo = new MongoUserRepository();
 export class UserController {
   static async registerUser(req: Request, res: Response) {
     try {
-      const { name, email, password } = req.body;
+      const { name, email, password, role } = req.body;
 
       if (!name || !email || !password) {
         return res.status(400).json({ message: "Todos los campos son obligatorios." });
@@ -23,14 +23,10 @@ export class UserController {
         return res.status(400).json({ message: "El formato del correo no es válido." });
       }
 
-      if (password.length < 6) {
-        return res.status(400).json({ message: "La contraseña debe tener al menos 6 caracteres." });
-      }
-
       const useCase = new RegisterUserUseCase(userRepo);
-      const newUser = await useCase.execute({ name, email, password });
+      const newUser = await useCase.execute({ name, email, password, role });
 
-      res.status(201).json(newUser);
+      res.status(201).json(newUser.toPrimitives()); // ✅ sin passwordHash
     } catch (error: any) {
       console.error("❌ Error en registerUser:", error);
       res.status(400).json({ message: error.message || "Error al registrar usuario." });
@@ -41,7 +37,7 @@ export class UserController {
     try {
       const useCase = new GetUsersUseCase(userRepo);
       const users = await useCase.execute();
-      res.json(users);
+      res.json(users.map(u => u.toPrimitives())); // ✅ evita exponer hash
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }
@@ -56,7 +52,7 @@ export class UserController {
       const user = await useCase.execute(id);
 
       if (!user) return res.status(404).json({ message: "User not found" });
-      res.json(user);
+      res.json(user.toPrimitives()); // ✅
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }
@@ -71,7 +67,7 @@ export class UserController {
       const updated = await useCase.execute(id, req.body);
 
       if (!updated) return res.status(404).json({ message: "User not found" });
-      res.json(updated);
+      res.json(updated.toPrimitives()); // ✅
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }

@@ -1,4 +1,4 @@
-import { Student } from "../../../../../domain/src/entities/Student.js";
+import { Student } from "../../../../../domain/src/entities/students/Student.js";
 import type { IStudentRepository } from "../../../../../domain/src/repositories/IStudentRepository.js";
 import { StudentModel, type IStudent } from "../database/models/Student.js";
 import type { BeltLevel } from "../../../../../domain/src/entities/BeltLevel.js";

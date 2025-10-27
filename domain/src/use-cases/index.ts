@@ -1,21 +1,14 @@
 // Users
-export * from "./RegisterUserUseCase.js";
-export * from "./GetUsersUseCase.js";
-export * from "./GetUserByIdUseCase.js";
-export * from "./UpdateUserUseCase.js";
-export * from "./DeleteUserUseCase.js";
+export * from "./users/RegisterUserUseCase.js";
+export * from "./users/GetUsersUseCase.js";
+export * from "./users/GetUserByIdUseCase.js";
+export * from "./users/UpdateUserUseCase.js";
+export * from "./users/DeleteUserUseCase.js";
 
 // Students
-export * from "./RegisterStudentUseCase.js";
-export * from "./GetStudentsUseCase.js";
-export * from "./GetStudentByIdUseCase.js";
-export * from "./UpdateStudentUseCase.js";
-export * from "./DeleteStudentUseCase.js";
+export * from "./students/RegisterStudentUseCase.js";
+export * from "./students/GetStudentsUseCase.js";
+export * from "./students/GetStudentByIdUseCase.js";
+export * from "./students/UpdateStudentUseCase.js";
+export * from "./students/DeleteStudentUseCase.js";
 
-// Payments
-export * from "./MakePaymentUseCase.js";
-export * from "./GetPaymentsUseCase.js";
-
-// Promotions
-export * from "./PromoteStudentUseCase.js";
-export * from "./GetPromotionsUseCase.js";
