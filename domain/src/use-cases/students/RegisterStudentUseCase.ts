@@ -1,33 +1,30 @@
 import { randomUUID } from "crypto";
-import { Student } from "../../entities/students/Student.js";
-import type { IStudentRepository } from "../../repositories/IStudentRepository.js";
+import { User } from "../../entities/users/User.js";
+import type { IUserRepository } from "../../repositories/IUserRepository.js";
+import type { IPasswordHasher } from "../../services/IPasswordHasher.js";
 
-export class RegisterStudentUseCase {
-  constructor(private studentRepo: IStudentRepository) {}
+export class RegisterUserUseCase {
+  constructor(
+    private readonly userRepo: IUserRepository,
+    private readonly passwordHasher: IPasswordHasher
+  ) {}
 
-  async execute(data: {
-    name: string;
-    email: string;
-    birthDate: string | Date;
-    userId: string;
-    belt?: string;
-    phone?: string;
-  }): Promise<Student> {
-    const birthDate =
-      typeof data.birthDate === "string"
-        ? new Date(data.birthDate)
-        : data.birthDate;
+  async execute(data: { name: string; email: string; password: string; role?: string; }): Promise<User> {
+    if (!data.name || !data.email || !data.password) throw new Error("Missing required fields");
 
-    const student = new Student(
+    const existing = await this.userRepo.findByEmail(data.email.toLowerCase());
+    if (existing) throw new Error("Email already registered");
+
+    const passwordHash = await this.passwordHasher.hash(data.password);
+
+    const user = new User(
       randomUUID(),
-      data.name,
-      data.email,
-      data.userId,
-      birthDate,
-      data.belt ?? "WHITE",
-      data.phone
+      data.name.trim(),
+      data.email.toLowerCase(),
+      passwordHash,
+      (data.role as any) ?? "STUDENT"
     );
 
-    return this.studentRepo.create(student);
+    return this.userRepo.create(user);
   }
 }

@@ -1,24 +1,23 @@
-import { jwt } from 'jsonwebtoken';
-import { bcrypt } from 'bcrypt';
 import type { IUserRepository } from "../../repositories/IUserRepository.js";
-import { User } from "../../entities/users/User.js";
+import type { IPasswordHasher } from "../../services/IPasswordHasher.js";
+import type { ITokenGenerator } from "../../services/ITokenGenerator.js";
 
 export class LoginUserUseCase {
-  constructor(private userRepo: IUserRepository) {}
+  constructor(
+    private readonly userRepo: IUserRepository,
+    private readonly passwordHasher: IPasswordHasher,
+    private readonly tokenGenerator: ITokenGenerator
+  ) {}
 
-  async execute(email: string, password: string): Promise<{ token: string; user: User }> {
+  async execute(email: string, password: string): Promise<{ token: string }> {
     const user = await this.userRepo.findByEmail(email.toLowerCase());
-    if (!user) throw new Error("Invalid email or password");
+    if (!user) throw new Error("Invalid credentials");
 
-    const valid = await bcrypt.compare(password, user.password);
-    if (!valid) throw new Error("Invalid email or password");
+    const valid = await this.passwordHasher.compare(password, user.password);
+    if (!valid) throw new Error("Invalid credentials");
+    
+    const token = this.tokenGenerator.generate({ userId: user.id, role: user.role });
 
-    const token = jwt.sign(
-      { userId: user.id, role: user.role },
-      process.env.JWT_SECRET || "secret",
-      { expiresIn: "1h" }
-    );
-
-    return { token, user };
+    return { token };
   }
 }

@@ -1,12 +1,8 @@
-import 
-{ RegisterUserUseCase, 
-  GetUsersUseCase,
-  GetUserByIdUseCase,  
-  UpdateUserUseCase, 
-  DeleteUserUseCase } from "../../../../../domain/src/use-cases/index.js";
-import { LoginUserUseCase } from "../../../../../domain/src/use-cases/users/LoginUserUseCase.js";
+import { LoginUserUseCase } from './../../../../../domain/src/use-cases/users/LoginUserUseCase';
+import { RegisterUserUseCase } from './../../../../../domain/src/use-cases/students/RegisterStudentUseCase';
 import { MongoUserRepository } from "../../infrastructure/repositories/MongoUserRepository.js";
 import type { Request, Response } from "express";
+import { GetUsersUseCase } from '../../../../../domain/src/use-cases/index.js';
 
 const userRepo = new MongoUserRepository();
 
