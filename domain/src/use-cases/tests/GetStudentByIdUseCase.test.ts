@@ -1,4 +1,3 @@
-// src/domain/use-cases/tests/GetStudentByIdUseCase.test.ts
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { GetStudentByIdUseCase } from "../../use-cases/students/GetStudentByIdUseCase.js";
 import { Student } from "../../entities/students/Student.js";

@@ -1,31 +1,17 @@
 import { Student } from "../../../../../domain/src/entities/students/Student.js";
 import type { IStudentRepository } from "../../../../../domain/src/repositories/IStudentRepository.js";
 import { StudentModel, type IStudent } from "../database/models/Student.js";
-import type { BeltLevel } from "../../../../../domain/src/entities/BeltLevel.js";
 
 export class MongoStudentRepository implements IStudentRepository {
   private toDomain(doc: IStudent): Student {
-    const beltLevels: BeltLevel[] = [
-      "WHITE",
-      "LIGHTBLUE",
-      "YELLOW",
-      "ORANGE",
-      "GREEN",
-      "BLUE",
-      "BROWN",
-      "BLACK",
-    ];
-
-    const belt = beltLevels.includes(doc.belt) ? doc.belt : "WHITE";
-
     return new Student(
       doc._id.toString(),
       doc.name,
       doc.email,
       doc.userId,
       new Date(doc.birthDate),
-      belt,
-      doc.phone ?? undefined
+      doc.belt || "WHITE", // valor por defecto
+      doc.phone
     );
   }
 
@@ -51,7 +37,7 @@ export class MongoStudentRepository implements IStudentRepository {
 
   async getAll(): Promise<Student[]> {
     const docs = await StudentModel.find();
-    return docs.map((d) => this.toDomain(d));
+    return docs.map(this.toDomain);
   }
 
   async update(student: Student): Promise<Student> {
@@ -68,11 +54,13 @@ export class MongoStudentRepository implements IStudentRepository {
       { new: true }
     );
 
-    if (!updated) throw new Error("Student not found");
+    if (!updated) throw new Error(`Student with id ${student.id} not found`);
     return this.toDomain(updated);
   }
 
   async delete(id: string): Promise<void> {
-    await StudentModel.findByIdAndDelete(id);
+    const deleted = await StudentModel.findByIdAndDelete(id);
+    if (!deleted) throw new Error(`Student with id ${id} not found`);
   }
 }
+

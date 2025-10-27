@@ -1,4 +1,3 @@
-// src/domain/usecases/students/DeleteStudentUseCase.ts
 import type { IStudentRepository } from "../../repositories/IStudentRepository.js";
 
 export class DeleteStudentUseCase {

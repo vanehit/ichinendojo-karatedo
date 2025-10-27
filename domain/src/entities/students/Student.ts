@@ -1,4 +1,3 @@
-// src/domain/entities/students/Student.ts
 export class Student {
   public createdAt: Date;
   public birthDate: Date;
@@ -9,7 +8,7 @@ export class Student {
     public email: string,
     public userId: string,
     birthDate: Date | string,
-    public belt: string = "WHITE", // default simple string
+    public belt: string = "WHITE", 
     public phone?: string
   ) {
     const parsedDate = new Date(birthDate);
@@ -22,5 +21,19 @@ export class Student {
     if (!(birthDate instanceof Date) || isNaN(birthDate.getTime())) {
       throw new Error("Invalid birth date");
     }
+  }
+
+   // ✅ Método para devolver solo los datos públicos
+  toPrimitives() {
+    return {
+      id: this.id,
+      name: this.name,
+      email: this.email,
+      userId: this.userId,
+      birthDate: this.birthDate,
+      belt: this.belt,
+      phone: this.phone,
+      createdAt: this.createdAt,
+    };
   }
 }

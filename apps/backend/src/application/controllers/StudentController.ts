@@ -1,4 +1,3 @@
-// src/application/controllers/StudentController.ts
 import type { Request, Response } from "express";
 import { MongoStudentRepository } from "../../infrastructure/repositories/MongoStudentRepository.js";
 import {
@@ -12,22 +11,23 @@ import {
 const studentRepo = new MongoStudentRepository();
 
 export class StudentController {
-  static async register(req: Request, res: Response) {
+  static async registerStudent(req: Request, res: Response) {
     try {
       const { name, email, userId, birthDate, belt, phone } = req.body;
 
       if (!name || !email || !userId || !birthDate) {
         return res
           .status(400)
-          .json({ message: "name, email, userId y birthDate son requeridos" });
+          .json({ message: "name, email, userId y birthDate son requeridos." });
       }
 
       const useCase = new RegisterStudentUseCase(studentRepo);
       const student = await useCase.execute({ name, email, userId, birthDate, belt, phone });
 
-      res.status(201).json(student);
+      return res.status(201).json(student.toPrimitives());
     } catch (error: any) {
-      res.status(400).json({ message: error.message });
+      console.error("❌ Error en registerStudent:", error);
+      res.status(400).json({ message: error.message || "Error al registrar estudiante." });
     }
   }
 
@@ -35,7 +35,7 @@ export class StudentController {
     try {
       const useCase = new GetStudentsUseCase(studentRepo);
       const students = await useCase.execute();
-      res.json(students);
+      res.json(students.map(s => s.toPrimitives()));
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }
@@ -44,14 +44,18 @@ export class StudentController {
   static async getStudentById(req: Request, res: Response) {
     try {
       const { studentId } = req.params;
-      if (!studentId)
+      if (!studentId) {
         return res.status(400).json({ message: "Student id is required" });
+      }
 
       const useCase = new GetStudentByIdUseCase(studentRepo);
       const student = await useCase.execute(studentId);
 
-      if (!student) return res.status(404).json({ message: "Student not found" });
-      res.json(student);
+      if (!student) {
+        return res.status(404).json({ message: "Student not found" });
+      }
+
+      res.json(student.toPrimitives());
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }
@@ -60,14 +64,20 @@ export class StudentController {
   static async updateStudent(req: Request, res: Response) {
     try {
       const { studentId } = req.params;
-      if (!studentId)
+      if (!studentId) {
         return res.status(400).json({ message: "Student id is required" });
+      }
 
       const useCase = new UpdateStudentUseCase(studentRepo);
-      const updated = await useCase.execute({ ...req.body, id: studentId });
+      const updated = await useCase.execute(studentId, req.body);
 
-      res.json(updated);
+      if (!updated) {
+        return res.status(404).json({ message: "Student not found" });
+      }
+
+      res.json(updated.toPrimitives());
     } catch (error: any) {
+      console.error("❌ Error en updateStudent:", error);
       res.status(400).json({ message: error.message });
     }
   }
@@ -75,14 +85,16 @@ export class StudentController {
   static async deleteStudent(req: Request, res: Response) {
     try {
       const { studentId } = req.params;
-      if (!studentId)
+      if (!studentId) {
         return res.status(400).json({ message: "Student id is required" });
+      }
 
       const useCase = new DeleteStudentUseCase(studentRepo);
       await useCase.execute(studentId);
 
       res.json({ message: "Student deleted successfully" });
     } catch (error: any) {
+      console.error("❌ Error en deleteStudent:", error);
       res.status(500).json({ message: error.message });
     }
   }

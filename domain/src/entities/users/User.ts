@@ -35,8 +35,7 @@ export class User {
   setPassword(passwordHash: string): void {
     this._passwordHash = passwordHash;
   }
-
-  // ✅ Método útil para devolver solo datos públicos al frontend
+ 
   toPrimitives() {
     return {
       id: this.id,

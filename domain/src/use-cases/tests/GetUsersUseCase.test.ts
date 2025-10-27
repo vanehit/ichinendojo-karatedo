@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { GetUsersUseCase } from "../users/GetUsersUseCase.js";
 import { mockUserRepo } from "../../use-cases/tests/mocks/MockUserRepository.js";
-import { User } from "../../entities/User.js";
+import { User } from "../../entities/users/User.js";
 
 describe("GetUsersUseCase", () => {
   beforeEach(() => vi.clearAllMocks());

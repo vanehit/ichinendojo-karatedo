@@ -1,10 +1,9 @@
 import type { IUserRepository } from "../../../../../domain/src/repositories/IUserRepository.js";
 import { User, type UserRole } from "../../../../../domain/src/entities/users/User.js";
-import { UserModel } from "../database/models/User.js";
+import { UserModel, type IUser } from "../database/models/User.js";
 
 export class MongoUserRepository implements IUserRepository {
-  
-  private toDomain(userDoc: any): User {
+  private toDomain(userDoc: IUser): User {
     const validRoles: UserRole[] = ["ADMIN", "TEACHER", "STUDENT"];
     const roleValue = (userDoc.role?.toUpperCase() ?? "STUDENT") as UserRole;
     const role: UserRole = validRoles.includes(roleValue) ? roleValue : "STUDENT";
@@ -36,7 +35,7 @@ export class MongoUserRepository implements IUserRepository {
 
   async getAll(): Promise<User[]> {
     const docs = await UserModel.find();
-    return docs.map(doc => this.toDomain(doc)); // ✅ corregido map
+    return docs.map(this.toDomain);
   }
 
   async update(id: string, data: Partial<User>): Promise<User | null> {

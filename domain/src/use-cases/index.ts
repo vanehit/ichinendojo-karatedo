@@ -12,3 +12,4 @@ export * from "./students/GetStudentByIdUseCase.js";
 export * from "./students/UpdateStudentUseCase.js";
 export * from "./students/DeleteStudentUseCase.js";
 
+export * from "./users/LoginUserUseCase.js"

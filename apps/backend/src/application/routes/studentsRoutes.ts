@@ -1,12 +1,18 @@
+// src/application/routes/studentRoutes.ts
 import { Router } from "express";
 import { StudentController } from "../controllers/StudentController.js";
+import { authMiddleware } from "../middleware/authMiddleware.js";
 
-export const studentRouter = Router();
+export const studentsRouter = Router();
 
-studentRouter.get("/", StudentController.getStudents);
-studentRouter.post("/", StudentController.register);
+studentsRouter.use(authMiddleware());
 
-// Operaciones sobre un estudiante específico
-studentRouter.get("/:studentId", StudentController.getStudentById);
-studentRouter.put("/:studentId", StudentController.updateStudent);
-studentRouter.delete("/:studentId", StudentController.deleteStudent);
+studentsRouter.get("/", StudentController.getStudents);
+
+studentsRouter.post("/", StudentController.registerStudent);
+
+studentsRouter.get("/:studentId", StudentController.getStudentById);
+
+studentsRouter.put("/:studentId", StudentController.updateStudent);
+
+studentsRouter.delete("/:studentId", StudentController.deleteStudent);

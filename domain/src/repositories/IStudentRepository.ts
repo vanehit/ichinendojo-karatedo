@@ -1,4 +1,3 @@
-// src/domain/repositories/IStudentRepository.ts
 import type { Student } from "../entities/students/Student.js";
 
 export interface IStudentRepository {

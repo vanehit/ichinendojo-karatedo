@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { userRouter } from "./userRoutes.js";
-import { studentRouter } from "./studentsRoutes.js";
-import { paymentRouter } from "./paymentsRoutes.js";
-import { promotionRouter } from "./promotionRoutes.js";
+import { authRouter } from "./authRoutes.js";
+import { studentsRouter } from "./studentsRoutes.js";
+
 
 export const router = Router();
 
@@ -13,8 +13,7 @@ router.get("/health", (req, res) => res.json({ status: "ok" }));
 router.use("/users", userRouter);
 
 // Rutas de estudiantes
-router.use("/students", studentRouter);
+router.use("/students", studentsRouter);
 
-// Rutas anidadas de pagos y promociones
-router.use("/students/:studentId/payments", paymentRouter);
-router.use("/students/:studentId/promotions", promotionRouter);
+router.use("/auths", authRouter);
+

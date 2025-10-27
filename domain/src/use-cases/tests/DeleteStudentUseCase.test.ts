@@ -1,11 +1,10 @@
-// src/domain/use-cases/tests/DeleteStudentUseCase.test.ts
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { DeleteStudentUseCase } from "../../use-cases/students/DeleteStudentUseCase.js";
 import { mockStudentRepo } from "./mocks/MockStudentRepository.js";
 
 describe("DeleteStudentUseCase", () => {
   beforeEach(() => {
-    vi.clearAllMocks(); // limpia todos los mocks antes de cada test
+    vi.clearAllMocks(); 
   });
 
   it("should call repository.delete with the correct id", async () => {

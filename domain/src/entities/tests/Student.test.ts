@@ -5,13 +5,13 @@ import { describe, it, expect } from "vitest";
 describe("Student Entity", () => {
   it("should create a student with correct properties", () => {
     const student = new Student(
-      "s1",                       // id
-      "Vanesa",                   // name
-      "vanesasoria@gmail.com",    // email
-      "u1",                       // userId
-      new Date("2000-01-01"),     // birthDate
-      "WHITE",                    // belt
-      "123456789"                 // phone
+      "s1",                      
+      "Vanesa",                   
+      "vanesasoria@gmail.com",    
+      "u1",                       
+      new Date("2000-01-01"),     
+      "WHITE",                    
+      "123456789"                 
     );
 
     expect(student.id).toBe("s1");

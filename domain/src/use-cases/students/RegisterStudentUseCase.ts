@@ -1,4 +1,3 @@
-// src/domain/usecases/students/RegisterStudentUseCase.ts
 import { randomUUID } from "crypto";
 import { Student } from "../../entities/students/Student.js";
 import type { IStudentRepository } from "../../repositories/IStudentRepository.js";
