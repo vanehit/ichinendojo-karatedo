@@ -1,4 +1,4 @@
-import type { IUserRepository } from "../../repositories/IUserRepository.js";
+import type { IUserRepository } from "../repositories/IUserRepository.js";
 
 export class DeleteUserUseCase {
   constructor(private userRepository: IUserRepository) {}

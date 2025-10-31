@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { UpdateUserUseCase } from "../users/UpdateUserUseCase.js";
+import { UpdateUserUseCase } from "../UpdateUserUseCase.js";
 import { mockUserRepo } from "../../use-cases/tests/mocks/MockUserRepository.js";
 import { User } from "../../entities/users/User.js";
 

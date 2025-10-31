@@ -1,12 +1,12 @@
-import type { IUserRepository } from "../../../../../domain/src/repositories/IUserRepository.js";
-import { User, type UserRole } from "../../../../../domain/src/entities/users/User.js";
+import type { IUserRepository } from "../../../../../domain/dist/repositories/IUserRepository.js";
+import { User, type UserRole } from "../../../../../domain/dist/entities/users/User.js";
 import { UserModel, type IUser } from "../database/models/User.js";
 
 export class MongoUserRepository implements IUserRepository {
   private toDomain(userDoc: IUser): User {
-    const validRoles: UserRole[] = ["ADMIN", "TEACHER", "STUDENT"];
-    const roleValue = (userDoc.role?.toUpperCase() ?? "STUDENT") as UserRole;
-    const role: UserRole = validRoles.includes(roleValue) ? roleValue : "STUDENT";
+    const validRoles: UserRole[] = ["ADMIN", "TEACHER", "STUDENT", "USER"];
+    const roleValue = (userDoc.role?.toUpperCase() ?? "USER") as UserRole;
+    const role: UserRole = validRoles.includes(roleValue) ? roleValue : "USER";
     return new User(userDoc._id.toString(), userDoc.name, userDoc.email, userDoc.passwordHash, role);
   }
 
@@ -23,10 +23,15 @@ export class MongoUserRepository implements IUserRepository {
     return this.toDomain(saved);
   }
 
-  async findByEmail(email: string): Promise<User | null> {
-    const userDoc = await UserModel.findOne({ email });
-    return userDoc ? this.toDomain(userDoc) : null;
+ async findByEmail(email: string): Promise<User | null> {
+  const userDoc = await UserModel.findOne({ email });
+  if (userDoc) {
+    console.log("✅ Mongo findByEmail:", email, "->", userDoc.toObject());
+    return this.toDomain(userDoc);
   }
+  console.log("⚠️ Mongo findByEmail: not found", email);
+  return null;
+}
 
   async findById(id: string): Promise<User | null> {
     const doc = await UserModel.findById(id);
@@ -35,7 +40,7 @@ export class MongoUserRepository implements IUserRepository {
 
   async getAll(): Promise<User[]> {
     const docs = await UserModel.find();
-    return docs.map(this.toDomain);
+    return docs.map((doc) => this.toDomain(doc));
   }
 
   async update(id: string, data: Partial<User>): Promise<User | null> {
@@ -54,5 +59,9 @@ export class MongoUserRepository implements IUserRepository {
 
   async delete(id: string): Promise<void> {
     await UserModel.findByIdAndDelete(id);
+  }
+
+  async count(): Promise<number> {
+    return UserModel.countDocuments();
   }
 }

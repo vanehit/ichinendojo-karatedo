@@ -1,4 +1,4 @@
-import { LoginUserUseCase } from './../users/LoginUserUseCase';
+import { LoginUserUseCase } from './../LoginUserUseCase';
 import { vi, describe, it, expect, beforeEach } from "vitest";
 import { mockUserRepo } from "./mocks/MockUserRepository.js";
 

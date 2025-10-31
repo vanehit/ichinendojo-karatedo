@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "ts-node -r tsconfig-paths/register --transpile-only src/index.ts"
+    "dev": "npm run build:domain && nodemon --watch src --ext ts --exec tsx src/index.ts",
+    "build:domain": "cd ../../domain && npm run build",
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
@@ -29,6 +31,7 @@
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   }
 }

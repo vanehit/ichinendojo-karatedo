@@ -1,9 +1,8 @@
-
-import { Student } from "../../../entities/students/Student.js";
-import { vi } from "vitest";
+import { vi, type Mocked } from "vitest";
 import type { IStudentRepository } from "../../../repositories/IStudentRepository.js";
+import type { Student } from "../../../entities/students/Student.js";
 
-export const mockStudentRepo: IStudentRepository = {
+export const mockStudentRepo: Mocked<IStudentRepository> = {
   create: vi.fn(async (student: Student) => student),
   findById: vi.fn(async (id: string) => null),
   getAll: vi.fn(async () => []),

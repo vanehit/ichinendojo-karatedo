@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { DeleteStudentUseCase } from "../../use-cases/students/DeleteStudentUseCase.js";
+import { DeleteStudentUseCase } from "../DeleteStudentUseCase.js";
 import { mockStudentRepo } from "./mocks/MockStudentRepository.js";
 
 describe("DeleteStudentUseCase", () => {

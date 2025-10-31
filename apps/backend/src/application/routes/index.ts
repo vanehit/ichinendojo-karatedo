@@ -2,6 +2,7 @@ import { Router } from "express";
 import { userRouter } from "./userRoutes.js";
 import { authRouter } from "./authRoutes.js";
 import { studentsRouter } from "./studentsRoutes.js";
+import { userAdminRouter } from "./userRoutesAdmin.js";
 
 
 export const router = Router();
@@ -16,4 +17,6 @@ router.use("/users", userRouter);
 router.use("/students", studentsRouter);
 
 router.use("/auths", authRouter);
+
+router.use("/users", userAdminRouter);
 

@@ -1,4 +1,4 @@
-import type { IStudentRepository } from "../../repositories/IStudentRepository.js";
+import type { IStudentRepository } from "../repositories/IStudentRepository.js";
 
 export class DeleteStudentUseCase {
   constructor(private studentRepository: IStudentRepository) {}
@@ -7,3 +7,4 @@ export class DeleteStudentUseCase {
     await this.studentRepository.delete(id);
   }
 }
+

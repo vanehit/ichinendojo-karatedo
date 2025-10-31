@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
-import type { UserRole } from "../../../../../../domain/src/entities/users/User.js";
+import type { UserRole } from "../../../../../../domain/dist/entities/users/User.js";
 
 export interface IUser extends Document {
   _id: string;
@@ -17,8 +17,8 @@ const UserSchema = new Schema<IUser>({
   passwordHash: { type: String, required: true },
   role: {
     type: String,
-    enum: ["ADMIN", "TEACHER", "STUDENT"],
-    default: "STUDENT",
+    enum: ["ADMIN", "TEACHER", "STUDENT", "USER"],
+    default: "USER",
   },
   createdAt: { type: Date, default: Date.now },
 });

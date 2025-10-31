@@ -1,24 +1,40 @@
-import { mockUserRepo } from "./mocks/MockUserRepository.js";
-import { RegisterUserUseCase } from "../users/RegisterUserUseCase.js";
 import { describe, it, expect, vi, beforeEach } from "vitest";
+import { RegisterStudentUseCase } from "../RegisterStudentUseCase.js";
+import { mockStudentRepo } from "./mocks/MockStudentRepository.js";
 
-const mockHasher = {
-  hash: vi.fn(async (password: string) => "hashed-" + password),
-};
+describe("RegisterStudentUseCase", () => {
+  beforeEach(() => vi.clearAllMocks());
 
-describe("RegisterUserUseCase", () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
+  it("creates a student with default belt WHITE", async () => {
+    const useCase = new RegisterStudentUseCase(mockStudentRepo);
+    const studentData = {
+      name: "Lucas",
+      email: "lucas@gmail.com",
+      userId: "user-123",
+      birthDate: new Date("2010-01-01"),
+    };
+
+    const result = await useCase.execute(studentData);
+
+    expect(mockStudentRepo.create).toHaveBeenCalledTimes(1);
+    expect(result.belt).toBe("WHITE");
+    expect(result.name).toBe("Lucas");
+    expect(result.email).toBe("lucas@gmail.com");
+    expect(result.userId).toBe("user-123");
   });
 
-  it("should register a user with default role STUDENT and hash password", async () => {
-    const useCase = new RegisterUserUseCase(mockUserRepo, mockHasher);
+  it("creates a student with specified belt", async () => {
+    const useCase = new RegisterStudentUseCase(mockStudentRepo);
+    const studentData = {
+      name: "Ana",
+      email: "ana@gmail.com",
+      userId: "user-456",
+      birthDate: new Date("2012-05-05"),
+      belt: "GREEN",
+    };
 
-    const newUserData = { name: "Vanesa", email: "vane@gmail.com", password: "1234" };
-    const result = await useCase.execute(newUserData);
+    const result = await useCase.execute(studentData);
 
-    expect(mockUserRepo.create).toHaveBeenCalledTimes(1);
-    expect(mockHasher.hash).toHaveBeenCalledWith("1234");
-    expect(result.role).toBe("STUDENT");
+    expect(result.belt).toBe("GREEN");
   });
 });

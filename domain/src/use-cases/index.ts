@@ -1,13 +1,13 @@
 // Users
-export { RegisterUserUseCase } from "./users/RegisterUserUseCase.js";
-export { GetUsersUseCase } from "./users/GetUsersUseCase.js";
-export { GetUserByIdUseCase } from "./users/GetUserByIdUseCase.js";
-export { UpdateUserUseCase } from "./users/UpdateUserUseCase.js";
-export { DeleteUserUseCase } from "./users/DeleteUserUseCase.js";
-export { LoginUserUseCase } from "./users/LoginUserUseCase.js";
+export * from "./RegisterUserUseCase.js";
+export * from "./GetUsersUseCase.js";
+export * from "./GetUserByIdUseCase.js";
+export * from "./UpdateUserUseCase.js";
+export * from "./DeleteUserUseCase.js";
+export * from "./LoginUserUseCase.js";
 
-// Students
-export { GetStudentsUseCase } from "./students/GetStudentsUseCase.js";
-export { GetStudentByIdUseCase } from "./students/GetStudentByIdUseCase.js";
-export { UpdateStudentUseCase } from "./students/UpdateStudentUseCase.js";
-export { DeleteStudentUseCase } from "./students/DeleteStudentUseCase.js";
+export * from "./RegisterStudentUseCase.js";
+export * from "./GetStudentsUseCase.js";
+export * from "./GetStudentByIdUseCase.js";
+export * from "./UpdateStudentUseCase.js";
+export * from "./DeleteStudentUseCase.js";

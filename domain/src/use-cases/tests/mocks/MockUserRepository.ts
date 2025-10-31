@@ -9,4 +9,6 @@ export const mockUserRepo: IUserRepository = {
   findByEmail: vi.fn(async (email: string) => null),
   update: vi.fn(async (id: string, data: Partial<User>) => null),
   delete: vi.fn(async (id: string) => {}),
+
+   count: vi.fn(async () => 0),
 };

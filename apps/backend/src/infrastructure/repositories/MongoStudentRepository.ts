@@ -1,5 +1,5 @@
-import { Student } from "../../../../../domain/src/entities/students/Student.js";
-import type { IStudentRepository } from "../../../../../domain/src/repositories/IStudentRepository.js";
+import { Student } from "../../../../../domain/dist/entities/students/Student.js";
+import type { IStudentRepository } from "../../../../../domain/dist/repositories/IStudentRepository.js";
 import { StudentModel, type IStudent } from "../database/models/Student.js";
 
 export class MongoStudentRepository implements IStudentRepository {
@@ -10,7 +10,7 @@ export class MongoStudentRepository implements IStudentRepository {
       doc.email,
       doc.userId,
       new Date(doc.birthDate),
-      doc.belt || "WHITE", // valor por defecto
+      doc.belt || "WHITE",
       doc.phone
     );
   }
@@ -63,4 +63,3 @@ export class MongoStudentRepository implements IStudentRepository {
     if (!deleted) throw new Error(`Student with id ${id} not found`);
   }
 }
-

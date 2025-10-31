@@ -1,5 +1,6 @@
-import { Student } from "../../entities/students/Student.js";
-import type { IStudentRepository } from "../../repositories/IStudentRepository.js";
+import type { Student } from "../entities/index.js";
+import type { IStudentRepository } from "../repositories/IStudentRepository.js";
+
 
 export class UpdateStudentUseCase {
   constructor(private studentRepository: IStudentRepository) {}

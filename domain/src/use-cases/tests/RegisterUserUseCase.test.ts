@@ -1,4 +1,4 @@
-import { RegisterUserUseCase } from './../students/RegisterStudentUseCase';
+import { RegisterUserUseCase } from './../RegisterUserUseCase';
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { mockUserRepo } from './mocks/MockUserRepository';
 

@@ -1,39 +1,31 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import tsConfigPaths from "tsconfig-paths";
-import MongoConnectDB from "./infrastructure/database/connectDB.js";
+import { errorMiddleware } from "./application/middleware/errorMiddleware.js";
 import { router } from "./application/routes/index.js";
-
+import MongoConnectDB from "./infrastructure/database/connectDB.js";
 
 dotenv.config();
 
-const baseUrl = "./src";
-const paths = {
-  "@domain/*": ["../../domain/src/*"],
-  "@application/*": ["application/*"],
-  "@infrastructure/*": ["infrastructure/*"],
-  "@presentation/*": ["presentation/*"]
-};
-tsConfigPaths.register({ baseUrl, paths });
-
 const app = express();
 
-// Middlewares
 app.use(cors());
 app.use(express.json());
-
 app.use("/api", router);
+app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 3000;
 
-MongoConnectDB()
-  .then(() => {
+console.log("🚀 Starting backend...");
+
+(async () => {
+  try {
+    await MongoConnectDB(); 
+    console.log("📡 DB connected, starting server...");
     app.listen(PORT, () => {
       console.log(`✅ Server running on http://localhost:${PORT}`);
     });
-  })
-  .catch(err => {
-    console.error("❌ DB connection error:", err);
-    process.exit(1);
-  });
+  } catch (err) {
+    console.error("❌ Error during backend startup:", err);
+  }
+})();

@@ -1,4 +1,4 @@
-export type UserRole = "ADMIN" | "TEACHER" | "STUDENT";
+export type UserRole = "ADMIN" | "TEACHER" | "STUDENT" | "USER";
 
 export class User {
   public readonly id: string;
@@ -13,9 +13,9 @@ export class User {
     name: string,
     email: string,
     passwordHash: string,
-    role: UserRole = "STUDENT"
+    role: UserRole = "USER"
   ) {
-    const validRoles: UserRole[] = ["ADMIN", "TEACHER", "STUDENT"];
+    const validRoles: UserRole[] = ["ADMIN", "TEACHER", "STUDENT", "USER"];
     if (!validRoles.includes(role)) {
       throw new Error(`Invalid role: ${role}`);
     }
@@ -28,6 +28,10 @@ export class User {
     this._passwordHash = passwordHash;
   }
 
+  get passwordHash(): string {
+    return this._passwordHash;
+  }
+
   get password(): string {
     return this._passwordHash;
   }
@@ -35,7 +39,7 @@ export class User {
   setPassword(passwordHash: string): void {
     this._passwordHash = passwordHash;
   }
- 
+
   toPrimitives() {
     return {
       id: this.id,

@@ -1,18 +1,14 @@
-// src/application/routes/studentRoutes.ts
 import { Router } from "express";
 import { StudentController } from "../controllers/StudentController.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 
 export const studentsRouter = Router();
 
-studentsRouter.use(authMiddleware());
+// Solo ADMIN puede crear, actualizar o borrar
+studentsRouter.post("/", authMiddleware(["ADMIN"]), StudentController.registerStudent);
+studentsRouter.put("/:studentId", authMiddleware(["ADMIN"]), StudentController.updateStudent);
+studentsRouter.delete("/:studentId", authMiddleware(["ADMIN"]), StudentController.deleteStudent);
 
-studentsRouter.get("/", StudentController.getStudents);
-
-studentsRouter.post("/", StudentController.registerStudent);
-
-studentsRouter.get("/:studentId", StudentController.getStudentById);
-
-studentsRouter.put("/:studentId", StudentController.updateStudent);
-
-studentsRouter.delete("/:studentId", StudentController.deleteStudent);
+// Todos los usuarios autenticados pueden leer
+studentsRouter.get("/", authMiddleware(), StudentController.getStudents);
+studentsRouter.get("/:studentId", authMiddleware(), StudentController.getStudentById);
