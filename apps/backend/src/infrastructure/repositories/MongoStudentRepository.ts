@@ -11,7 +11,8 @@ export class MongoStudentRepository implements IStudentRepository {
       doc.userId,
       new Date(doc.birthDate),
       doc.belt || "WHITE",
-      doc.phone
+      doc.phone,
+      doc.photo ?? null 
     );
   }
 
@@ -24,6 +25,7 @@ export class MongoStudentRepository implements IStudentRepository {
       birthDate: student.birthDate,
       belt: student.belt,
       phone: student.phone,
+      photo: student.photo,
       createdAt: student.createdAt,
     }).save();
 
@@ -37,7 +39,7 @@ export class MongoStudentRepository implements IStudentRepository {
 
   async getAll(): Promise<Student[]> {
     const docs = await StudentModel.find();
-    return docs.map(this.toDomain);
+    return docs.map((d) => this.toDomain(d));
   }
 
   async update(student: Student): Promise<Student> {
@@ -50,6 +52,7 @@ export class MongoStudentRepository implements IStudentRepository {
         birthDate: student.birthDate,
         belt: student.belt,
         phone: student.phone,
+        photo: student.photo, 
       },
       { new: true }
     );

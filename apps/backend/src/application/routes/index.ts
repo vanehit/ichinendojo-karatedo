@@ -16,7 +16,7 @@ router.use("/users", userRouter);
 // Rutas de estudiantes
 router.use("/students", studentsRouter);
 
-router.use("/auths", authRouter);
+router.use("/auth", authRouter);
 
 router.use("/users", userAdminRouter);
 

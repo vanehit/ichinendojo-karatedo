@@ -5,10 +5,11 @@ import type { IStudentRepository } from "../repositories/IStudentRepository.js";
 export interface IRegisterStudent {
   name: string;
   email: string;
-  userId: string;      // vínculo con un usuario existente
+  userId: string;
   birthDate: Date;
-  belt?: string;    // default WHITE
+  belt?: string;
   phone?: string;
+  photo?: string;
 }
 
 export class RegisterStudentUseCase {
@@ -26,7 +27,8 @@ export class RegisterStudentUseCase {
       data.userId,
       data.birthDate,
       data.belt ?? "WHITE",
-      data.phone
+      data.phone ?? "",
+      data.photo ?? null
     );
 
     return this.studentRepo.create(student);

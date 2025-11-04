@@ -8,6 +8,7 @@ export interface IStudent extends Document {
   birthDate: Date;
   belt?: string;
   phone?: string;
+  photo?: string;
   createdAt: Date;
 }
 
@@ -19,6 +20,7 @@ const StudentSchema = new Schema<IStudent>({
   birthDate: { type: Date, required: true },
   belt: { type: String, default: "WHITE" },
   phone: { type: String },
+  photo: { type: String, default: "" },
   createdAt: { type: Date, default: Date.now },
 });
 

@@ -9,7 +9,8 @@ export class Student {
     public userId: string,
     birthDate: Date | string,
     public belt: string = "WHITE", 
-    public phone?: string
+    public phone?: string,
+     public photo?: string | null
   ) {
     const parsedDate = new Date(birthDate);
     this.validateBirthDate(parsedDate);
@@ -33,6 +34,7 @@ export class Student {
       birthDate: this.birthDate,
       belt: this.belt,
       phone: this.phone,
+       photo: this.photo ?? "",
       createdAt: this.createdAt,
     };
   }

@@ -13,9 +13,9 @@ const studentRepo = new MongoStudentRepository();
 export class StudentController {
   static async registerStudent(req: Request, res: Response) {
     try {
-      const { name, email, userId, birthDate, belt, phone } = req.body;
+      const { name, email, userId, birthDate, belt, phone,  photo } = req.body;
       const useCase = new RegisterStudentUseCase(studentRepo);
-      const student = await useCase.execute({ name, email, userId, birthDate, belt, phone });
+      const student = await useCase.execute({ name, email, userId, birthDate, belt, phone,  photo });
       return res.status(201).json(student.toPrimitives());
     } catch (error: any) {
       return res.status(400).json({ message: error.message });
