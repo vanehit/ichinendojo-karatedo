@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import { useAuth } from "../context/AuthContext";
-import { Button } from "../ui/Button/Button"; 
+import { Button } from "../ui/Button/Button";
 
 export const Navbar: React.FC = () => {
   const { user, logout } = useAuth();
@@ -13,10 +13,10 @@ export const Navbar: React.FC = () => {
     navigate("/login");
   };
 
-  // 🔗 Links base (visibles para todos los usuarios logueados)
+  // 🔗 Links base visibles para todos
   const baseLinks = [
     { label: "Inicio", to: "/" },
-    { label: "Alumnos", to: "/students" },
+    { label: "Contacto", to: "/contacto" }, // 👈 agregado
   ];
 
   // 🔗 Links específicos por rol
@@ -30,24 +30,26 @@ export const Navbar: React.FC = () => {
     { label: "Dashboard", to: "/dashboard" },
   ];
 
-  // 🔗 Enlaces según rol
+  // 🔗 Combinar enlaces según el rol del usuario
   const links = user
     ? [
         ...baseLinks,
         ...(user.role === "TEACHER" ? teacherLinks : []),
         ...(user.role === "ADMIN" ? adminLinks : []),
       ]
-    : 
-      [{ label: "Inicio", to: "/" }];
+    : baseLinks;
 
   return (
     <nav className="flex justify-between items-center bg-gray-900 text-white px-6 py-3 shadow-md">
-      {/* Logo y título */}
-      <Link to="/" className="text-xl font-bold tracking-wide hover:text-yellow-400">
+      {/* Logo / Título */}
+      <Link
+        to="/"
+        className="text-xl font-bold tracking-wide hover:text-yellow-400"
+      >
         🥋 Ichinen Dojo
       </Link>
 
-      {/* Menú */}
+      {/* Menú principal */}
       <ul className="flex gap-4 items-center">
         {links.map((link) => (
           <li key={link.to}>
@@ -63,7 +65,7 @@ export const Navbar: React.FC = () => {
         ))}
       </ul>
 
-      {/* botón de login */}
+      {/* Botones de sesión */}
       <div className="flex items-center gap-3">
         {user && (
           <span className="text-sm text-gray-300">
@@ -72,11 +74,7 @@ export const Navbar: React.FC = () => {
         )}
 
         {user ? (
-          <Button
-            variant="danger"
-            className="text-sm"
-            onClick={handleLogout}
-          >
+          <Button variant="danger" className="text-sm" onClick={handleLogout}>
             Cerrar sesión
           </Button>
         ) : (

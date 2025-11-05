@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Card, type CardProps } from "../components/ui/cards/Card";
 
 // 📸 Importamos imágenes de ejemplo
-import sensei1 from "../../public/img/sensei1.jpg";
+import sensei1 from "../../public/img/sensei1.png";
 import alumno1 from "../../public/img/alumno1.jpg";
 import distintivo1 from "../../public/img/distintivo1.jpg";
 

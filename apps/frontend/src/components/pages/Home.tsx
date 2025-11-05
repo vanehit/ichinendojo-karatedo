@@ -1,6 +1,6 @@
 import React from "react";
-import dojoImage from "../../../public/img/distintivo1.jpg";
-import senseiImage from "../../../public/img/sensei1.jpg"; // 📸 cambiá la imagen si querés
+import dojoPhoto from "../../../public/img/dojo-distintivo.png";
+import senseiPhoto from "../../../public/img/sensei1.png"; 
 import { Button } from "../ui/Button/Button";
 import { useNavigate } from "react-router-dom";
 
@@ -14,7 +14,7 @@ export const Home: React.FC = () => {
         {/* Imagen lateral */}
         <div className="md:w-1/2 w-full h-72 md:h-full">
           <img
-            src={dojoImage}
+            src={dojoPhoto}
             alt="Escuela Kaizenkan"
             className="w-full h-full object-cover brightness-90"
           />
@@ -65,13 +65,28 @@ export const Home: React.FC = () => {
         id="about"
         className="flex flex-col md:flex-row items-center justify-center gap-10 py-20 px-6 md:px-20 bg-white"
       >
-        {/* Imagen del sensei o dojo */}
-        <div className="md:w-1/2 w-full">
-          <img
-            src={senseiImage}
-            alt="Sensei en entrenamiento"
-            className="rounded-2xl shadow-lg object-cover w-full h-80 md:h-[450px]"
-          />
+        {/* Card del Sensei */}
+        <div className="md:w-1/2 w-full flex justify-center items-center">
+          <div className="bg-white rounded-3xl shadow-lg border-t-4 border-red-600 text-center overflow-hidden max-w-sm w-full">
+            <img
+              src={senseiPhoto}
+              alt="Sensei Morinobu Maeshiro"
+              className="w-full h-64 object-cover"
+            />
+            <div className="p-5 bg-white">
+              <h3 className="text-2xl font-bold text-gray-900 mb-1">
+                Sensei Morinobu Maeshiro
+              </h3>
+              <p className="italic text-gray-500 mb-2">10° Dan Shorin-Ryu Karate</p>
+              <span className="inline-block bg-blue-100 text-blue-700 text-sm font-semibold px-3 py-1 rounded-full mb-3">
+                Cinturón Negro
+              </span>
+              <p className="text-gray-700 text-sm leading-relaxed">
+                Gran Maestro del Karate Shōrin-ryū de Okinawa. <br />
+                Portador del título Hanshi y referente internacional del estilo.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Texto informativo */}
@@ -80,11 +95,12 @@ export const Home: React.FC = () => {
             Sobre la Escuela
           </h2>
           <p className="text-gray-700 text-lg leading-relaxed mb-6">
-            El <strong>ICHINEN DOJO </strong>nace en 1997,en la ciudad de Rio Tercero, Córdoba - Argentina y su nombre es un término budista, que aunque tiene varios significados parecidos, nosotros tomamos la idea de que  
-            <strong> ICHINEN </strong> significa un "instante".  
-            A través del entrenamiento constante, buscamos fortalecer tanto el
-            cuerpo como la mente, cultivando el respeto, la humildad y la
-            superación personal.
+            El <strong>ICHINEN DOJO - KARATE DO</strong> nace en 1997 en la ciudad de Río Tercero,
+            Córdoba - Argentina, y su nombre es un término budista que, aunque tiene
+            varios significados parecidos, nosotros tomamos la idea de que{" "}
+            <strong>ICHINEN</strong> significa un "instante".  
+            A través del entrenamiento constante, buscamos fortalecer tanto el cuerpo
+            como la mente, cultivando el respeto, la humildad y la superación personal.
           </p>
 
           <ul className="text-gray-700 space-y-2 mb-6">
@@ -97,11 +113,13 @@ export const Home: React.FC = () => {
             variant="primary"
             className="mt-2"
             onClick={() => navigate("/contacto")}
+
           >
             Contactar la Escuela
           </Button>
         </div>
       </section>
+
     </main>
   );
 };

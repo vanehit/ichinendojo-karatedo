@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Button, type ButtonProps } from "../components/ui/Button/Button";
+import { Button, type ButtonProps } from "../Button/Button";
 
 // Metadata de la story
 const meta: Meta<ButtonProps> = {
