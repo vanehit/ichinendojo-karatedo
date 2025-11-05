@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 
 // ✅ Exportamos la interfaz para poder reutilizarla en toda la app
 export interface User {
@@ -29,6 +29,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [user, setUser] = useState<User | null>(
     JSON.parse(localStorage.getItem("user") || "null")
   );
+
+  useEffect(() => {
+  const storedToken = localStorage.getItem("token");
+  const storedUser = localStorage.getItem("user");
+  if (storedToken && storedUser) {
+    setToken(storedToken);
+    setUser(JSON.parse(storedUser));
+  }
+}, []);
 
   const handleLogin = (newToken: string, userData: User) => {
     setToken(newToken);

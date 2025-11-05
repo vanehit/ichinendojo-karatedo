@@ -4,6 +4,8 @@ import { Login } from "./components/pages/Login";
 import { Home } from "./components/pages/Home";
 import { Students } from "./components/pages/Students";
 import { useAuth } from "./components/context/AuthContext";
+import { Users } from "./components/pages/Users";
+import { Dashboard } from "./components/pages/Dashboard";
 
 function ProtectedRoute({ children }: { children: JSX.Element }) {
   const { token } = useAuth();
@@ -30,6 +32,8 @@ function App() {
           }
         >
           <Route path="/students" element={<Students />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Route>
 
         {/* Ruta por defecto */}

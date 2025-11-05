@@ -58,20 +58,18 @@ export const Students: React.FC = () => {
         </p>
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {students.map((student) => (
+          {students.map((student, index) => (
             <Card
-              key={student._id}
+              key={student._id ?? `student-${index}`}
               variant="alumno"
               title={student.name}
               subtitle={`Cinturón ${student.belt}`}
               belt={student.belt}
               description={`Tel: ${student.phone ?? "Sin teléfono"}`}
-              photo={
-                student.photo ??
-                "https://via.placeholder.com/300x200?text=Sin+foto"
-              }
+              photo={student.photo ?? "https://via.placeholder.com/300x200?text=Sin+foto"}
             />
           ))}
+
         </div>
       )}
     </div>

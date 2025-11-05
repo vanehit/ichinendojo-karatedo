@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Card, type CardProps } from "../components/ui/cards/Card";
 
-// Importamos imágenes de ejemplo
+// 📸 Importamos imágenes de ejemplo
 import sensei1 from "../../public/img/sensei1.jpg";
 import alumno1 from "../../public/img/alumno1.jpg";
 import distintivo1 from "../../public/img/distintivo1.jpg";
@@ -20,13 +20,13 @@ const meta: Meta<CardProps> = {
     },
     title: { control: "text" },
     subtitle: { control: "text" },
+    belt: { control: "text" },
     description: { control: "text" },
     photo: { control: "text" },
   },
 };
 
 export default meta;
-
 type Story = StoryObj<CardProps>;
 
 /**
@@ -38,7 +38,7 @@ export const Default: Story = {
     subtitle: "Escuela Shorin Ryu Kaizenkan Argentina",
     description:
       "Entrenamiento físico, mente y espíritu con respeto, disciplina y perseverancia.",
-    photo: distintivo1 ,
+    photo: distintivo1,
   },
 };
 
@@ -50,6 +50,7 @@ export const Sensei: Story = {
     variant: "sensei",
     title: "Sensei Morinobu Maeshiro",
     subtitle: "10º Dan Shorin-Ryu Karate",
+    belt: "Cinturón Negro",
     description:
       "Gran Maestro del Karate Shōrin-ryū de Okinawa. Portador del título Hanshi y referente internacional del estilo.",
     photo: sensei1,
@@ -63,9 +64,10 @@ export const Alumno: Story = {
   args: {
     variant: "alumno",
     title: "Vanesa Soria",
-    subtitle: "Cinturón Verde",
+    subtitle: "Estudiante de Karate Tradicional",
+    belt: "Cinturón Verde",
     description:
-      "Estudiante apasionada del karate tradicional, comprometida con el crecimiento físico y espiritual.",
+      "Apasionada por el aprendizaje constante y la disciplina del Karate-Do.",
     photo: alumno1,
   },
 };
