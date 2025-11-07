@@ -5,7 +5,6 @@ export class JwtTokenGenerator implements ITokenGenerator {
   private secret = process.env.JWT_SECRET || "secretkeys";
 
   generate(payload: JwtPayload | object, expiresIn: string = "1h"): string {
-    // @ts-ignore: workaround por tipos de jsonwebtoken v9
     return jwt.sign(payload, this.secret, { expiresIn });
   }
 

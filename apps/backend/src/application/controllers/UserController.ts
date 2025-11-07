@@ -27,7 +27,7 @@ export class UserController {
 
   static async getUserById(req: Request, res: Response) {
     try {
-      const { id } = req.params; // <-- CORREGIDO
+      const { id } = req.params; 
       const useCase = new GetUserByIdUseCase(userRepo);
       const user = await useCase.execute(id);
       if (!user) return res.status(404).json({ message: "User not found" });
@@ -41,7 +41,7 @@ export class UserController {
   
   static async updateUser(req: Request, res: Response) {
     try {
-      const { id } = req.params; // <-- CORREGIDO
+      const { id } = req.params; 
       const useCase = new UpdateUserUseCase(userRepo, passwordHasher);
 
       const updated = await useCase.execute(id, req.body);

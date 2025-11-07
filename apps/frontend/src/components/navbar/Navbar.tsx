@@ -13,15 +13,15 @@ export const Navbar: React.FC = () => {
     navigate("/login");
   };
 
-  // 🔗 Links base visibles para todos
+  // 🔗 Links visibles para todos
   const baseLinks = [
     { label: "Inicio", to: "/" },
-    { label: "Contacto", to: "/contacto" }, // 👈 agregado
+    { label: "Contacto", to: "/contacto" }, 
   ];
 
   // 🔗 Links específicos por rol
   const teacherLinks = [
-    { label: "Profesores", to: "/teachers" },
+    { label: "Alumnos", to: "/students" },
     { label: "Clases", to: "/classes" },
   ];
 
@@ -30,7 +30,7 @@ export const Navbar: React.FC = () => {
     { label: "Dashboard", to: "/dashboard" },
   ];
 
-  // 🔗 Combinar enlaces según el rol del usuario
+  // 🔗 Combinar links según el rol del usuario
   const links = user
     ? [
         ...baseLinks,

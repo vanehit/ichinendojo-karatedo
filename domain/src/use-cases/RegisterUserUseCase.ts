@@ -22,10 +22,9 @@ export class RegisterUserUseCase {
     let userRole: UserRole;
 
     if (totalUsers === 0) {
-      // Primer usuario del sistema => ADMIN
       userRole = "ADMIN";
     } else {
-      // Los siguientes deben tener rol definido explícitamente
+      // requiere rol
       if (!data.role) throw new Error("Role is required for new users (except the first admin)");
       userRole = data.role;
     }

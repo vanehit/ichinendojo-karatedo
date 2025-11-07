@@ -9,6 +9,7 @@ export interface IStudent extends Document {
   belt?: string;
   phone?: string;
   photo?: string;
+  teacherId: { type: String, ref: "User" },
   createdAt: Date;
 }
 

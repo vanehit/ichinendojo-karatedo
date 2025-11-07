@@ -9,6 +9,7 @@ export interface Student {
   belt: string;
   phone?: string;
   photo?: string;
+  entryDate?: string; 
   createdAt?: string;
 }
 

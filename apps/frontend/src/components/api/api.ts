@@ -10,10 +10,8 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  // 🔐 primero intenta leer el token del localStorage
   let token = localStorage.getItem("token");
-
-  // 🧩 si no hay token, usa el del .env (útil para Storybook)
+  
   if (!token && import.meta.env.VITE_AUTH_TOKEN) {
     token = import.meta.env.VITE_AUTH_TOKEN;
   }

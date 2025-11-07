@@ -1,4 +1,3 @@
-// src/pages/Dashboard.tsx
 import React, { useEffect, useState } from "react";
 import { studentApi } from "../api/studentApi";
 import { userApi } from "../api/userApi";

@@ -65,4 +65,9 @@ export class MongoStudentRepository implements IStudentRepository {
     const deleted = await StudentModel.findByIdAndDelete(id);
     if (!deleted) throw new Error(`Student with id ${id} not found`);
   }
+
+  async getByTeacher(teacherId: string): Promise<Student[]> {
+  const docs = await StudentModel.find({ teacherId }).lean();
+  return docs.map((d) => this.toDomain(d as any));
+  }
 }

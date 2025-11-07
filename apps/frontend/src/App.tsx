@@ -7,6 +7,8 @@ import { useAuth } from "./components/context/AuthContext";
 import { Users } from "./components/pages/Users";
 import { Dashboard } from "./components/pages/Dashboard";
 import { Contacto } from "./components/pages/Contact";
+import { Classes } from "./components/pages/Classes";
+
 
 function ProtectedRoute({ children }: { children: JSX.Element }) {
   const { token } = useAuth();
@@ -36,6 +38,7 @@ function App() {
           <Route path="/students" element={<Students />} />
           <Route path="/users" element={<Users />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/classes" element={<Classes />} />
         </Route>
 
         {/* Ruta por defecto */}

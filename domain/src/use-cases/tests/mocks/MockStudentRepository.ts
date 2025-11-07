@@ -8,4 +8,5 @@ export const mockStudentRepo: Mocked<IStudentRepository> = {
   getAll: vi.fn(async () => []),
   update: vi.fn(async (student: Student) => student),
   delete: vi.fn(async (id: string) => {}),
+   getByTeacher: vi.fn(async (teacherId: string) => []),
 };

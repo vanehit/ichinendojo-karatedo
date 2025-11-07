@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 
-// ✅ Exportamos la interfaz para poder reutilizarla en toda la app
 export interface User {
   id: string;
   name: string;
@@ -15,7 +14,6 @@ interface AuthContextType {
   logout: () => void;
 }
 
-// ✅ Creamos el contexto con valores iniciales por defecto
 const AuthContext = createContext<AuthContextType>({
   token: null,
   user: null,
@@ -23,7 +21,6 @@ const AuthContext = createContext<AuthContextType>({
   logout: () => {},
 });
 
-// ✅ Provider que envuelve la app y mantiene el estado global de autenticación
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
   const [user, setUser] = useState<User | null>(

@@ -6,4 +6,7 @@ export interface IStudentRepository {
   getAll(): Promise<Student[]>;
   update(student: Student): Promise<Student>;
   delete(id: string): Promise<void>;
+
+  getByTeacher(teacherId: string): Promise<Student[]>;
 }
+

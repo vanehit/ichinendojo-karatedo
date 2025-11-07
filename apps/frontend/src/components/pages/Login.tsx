@@ -62,7 +62,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           Entrar
         </button>
 
-        {/* 🔙 Link para volver al inicio */}
+        {/* Link para volver al inicio */}
         <div className="text-center pt-2">
           <Link
             to="/"

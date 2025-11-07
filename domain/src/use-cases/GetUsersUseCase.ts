@@ -1,4 +1,3 @@
-// src/domain/use-cases/users/GetUsersUseCase.ts
 import type { IUserRepository } from "../repositories/IUserRepository.js";
 import type { User } from "../entities/users/User.js";
 

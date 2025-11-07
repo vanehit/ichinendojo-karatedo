@@ -1,6 +1,7 @@
 export class Student {
   public createdAt: Date;
   public birthDate: Date;
+  public entryDate?: Date;
 
   constructor(
     public id: string,
@@ -8,13 +9,16 @@ export class Student {
     public email: string,
     public userId: string,
     birthDate: Date | string,
-    public belt: string = "WHITE", 
+    public belt: string = "WHITE",
     public phone?: string,
-     public photo?: string | null
+    public photo?: string | null,
+    entryDate?: string | Date
   ) {
-    const parsedDate = new Date(birthDate);
-    this.validateBirthDate(parsedDate);
-    this.birthDate = parsedDate;
+    const parsedBirthDate = new Date(birthDate);
+    this.validateBirthDate(parsedBirthDate);
+    this.birthDate = parsedBirthDate;
+    
+    this.entryDate = entryDate ? new Date(entryDate) : new Date();
     this.createdAt = new Date();
   }
 
@@ -24,7 +28,7 @@ export class Student {
     }
   }
 
-   // ✅ Método para devolver solo los datos públicos
+  // Método para devolver solo los datos públicos
   toPrimitives() {
     return {
       id: this.id,
@@ -34,7 +38,8 @@ export class Student {
       birthDate: this.birthDate,
       belt: this.belt,
       phone: this.phone,
-       photo: this.photo ?? "",
+      photo: this.photo ?? "",
+      entryDate: this.entryDate, 
       createdAt: this.createdAt,
     };
   }
