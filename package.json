@@ -1,10 +1,17 @@
 {
   "name": "ichinendojo-karatedo",
   "version": "1.0.0",
-  "description": "",
+  "description": "Monorepo del proyecto Ichinen Dojo Karatedo (frontend + backend + dominio compartido)",
   "main": "index.js",
   "type": "module",
+  "workspaces": [
+    "apps/frontend",
+    "apps/backend"
+  ],
   "scripts": {
+    "install:all": "npm install --workspaces",
+    "dev": "cd apps/frontend && npm run dev",
+    "build": "cd apps/frontend && npm run build",
     "test": "vitest"
   },
   "keywords": [],

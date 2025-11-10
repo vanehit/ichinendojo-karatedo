@@ -2,7 +2,8 @@
    "files": [],
   "references": [
     { "path": "domain" },
-    { "path": "apps/backend" }
+    { "path": "apps/backend" },
+    { "path": "apps/frontend" }
   ],
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
