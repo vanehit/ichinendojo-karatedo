@@ -28,18 +28,16 @@ export class ClassController {
   }
 
   static async getByTeacher(req: Request, res: Response) {
-  try {
-    const { teacherId } = req.params;
-
-    if (!teacherId) {
-      return res.status(400).json({ message: "teacherId is required" });
+    try {
+      const { teacherId } = req.params;
+      if (!teacherId) {
+        return res.status(400).json({ message: "teacherId is required" });
+      }
+      const useCase = new GetClassesByTeacherUseCase(classRepo);
+      const classes = await useCase.execute(teacherId);
+      res.json(classes.map(c => c.toPrimitives()));
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
     }
-
-    const useCase = new GetClassesByTeacherUseCase(classRepo);
-    const classes = await useCase.execute(teacherId);
-    res.json(classes.map(c => c.toPrimitives()));
-  } catch (error: any) {
-    res.status(500).json({ message: error.message });
   }
-}
 }

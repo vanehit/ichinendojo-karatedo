@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ClassAPI } from "../api/ClassApi.js";
-import { Button } from "../ui/Button/Button.js"; 
+import { Button } from "../ui/Button/Button.js";
 
 interface ClassData {
   _id: string;
@@ -11,7 +11,7 @@ interface ClassData {
   attendance?: string[];
 }
 
-export const Classes = () => {
+export const Classes = ({ teacherId }: { teacherId: string }) => {
   const [classes, setClasses] = useState<ClassData[]>([]);
   const [newClass, setNewClass] = useState({
     date: "",
@@ -20,16 +20,21 @@ export const Classes = () => {
     students: "",
   });
   const [loading, setLoading] = useState(false);
-//traemos las clases del profe logueado
-  useEffect(() => {
-    loadClasses();
-  }, []);
 
-  const loadClasses = async () => {
-    const res = await ClassAPI.getMyClasses();
+useEffect(() => {
+  const fetchClasses = async () => {
+    const res = await ClassAPI.getMyClasses(teacherId);
     setClasses(res.data);
   };
-  
+  fetchClasses();
+}, [teacherId]); 
+
+
+  const loadClasses = async () => {
+    const res = await ClassAPI.getMyClasses(teacherId);
+    setClasses(res.data);
+  };
+
   const handleAddClass = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -55,7 +60,6 @@ export const Classes = () => {
     <div className="p-6 space-y-6">
       <h1 className="text-2xl font-bold text-gray-800">📚 Mis Clases</h1>
 
-      {/* Form */}
       <form
         onSubmit={handleAddClass}
         className="p-4 bg-white rounded-xl shadow flex flex-col gap-3"
@@ -96,15 +100,14 @@ export const Classes = () => {
           }
           className="border p-2 rounded"
         />
+
         <div className="flex justify-end mt-2">
-          <Button type="submit" disabled={loading} variant="primary" >
-            
+          <Button type="submit" disabled={loading} variant="primary">
             {loading ? "Creando..." : "Agregar clase"}
           </Button>
         </div>
       </form>
 
-      {/* Listado de clases */}
       <div className="space-y-3">
         {classes.length === 0 ? (
           <p className="text-gray-500">No hay clases registradas aún.</p>
