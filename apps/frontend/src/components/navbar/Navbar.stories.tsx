@@ -1,6 +1,5 @@
-// src/navbar/Navbar.stories.tsx
 import type { Meta, StoryObj } from "@storybook/react";
-import { Navbar } from "./Navbar";
+import { Navbar } from "./Navbar.js";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 

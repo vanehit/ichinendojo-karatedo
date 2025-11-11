@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { AppLayout } from "./components/layout/AppLayout";
-import { Login } from "./components/pages/Login";
-import { Home } from "./components/pages/Home";
-import { Students } from "./components/pages/Students";
-import { useAuth } from "./components/context/AuthContext";
-import { Users } from "./components/pages/Users";
-import { Dashboard } from "./components/pages/Dashboard";
-import { Contacto } from "./components/pages/Contact";
-import { Classes } from "./components/pages/Classes";
+import { AppLayout } from "./components/layout/AppLayout.js";
+import { Login } from "./components/pages/Login.js";
+import { Home } from "./components/pages/Home.js";
+import { Students } from "./components/pages/Students.js";
+import { useAuth } from "./components/context/AuthContext.js";
+import { Users } from "./components/pages/Users.js";
+import { Dashboard } from "./components/pages/Dashboard.js";
+import { Contacto } from "./components/pages/Contact.js";
+import { Classes } from "./components/pages/Classes.js";
 
 
 function ProtectedRoute({ children }: { children: JSX.Element }) {

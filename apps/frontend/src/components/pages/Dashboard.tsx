@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { studentApi } from "../api/studentApi";
-import { userApi } from "../api/userApi";
+import { studentApi } from "../api/studentApi.js";
+import { userApi } from "../api/userApi.js";
 import { Loader2 } from "lucide-react";
 
 export const Dashboard: React.FC = () => {

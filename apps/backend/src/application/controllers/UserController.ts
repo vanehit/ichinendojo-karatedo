@@ -25,43 +25,56 @@ export class UserController {
   }
 
 
-  static async getUserById(req: Request, res: Response) {
-    try {
-      const { id } = req.params; 
-      const useCase = new GetUserByIdUseCase(userRepo);
-      const user = await useCase.execute(id);
-      if (!user) return res.status(404).json({ message: "User not found" });
-      res.json(user.toPrimitives());
-    } catch (error: any) {
-      console.error("❌ Error getting user by id:", error);
-      res.status(500).json({ message: error.message });
+ static async getUserById(req: Request, res: Response) {
+  try {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({ message: "User id is required" });
     }
+
+    const useCase = new GetUserByIdUseCase(userRepo);
+    const user = await useCase.execute(id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.json(user.toPrimitives());
+  } catch (error: any) {
+    console.error("❌ Error getting user by id:", error);
+    res.status(500).json({ message: error.message });
   }
+}
 
-  
-  static async updateUser(req: Request, res: Response) {
-    try {
-      const { id } = req.params; 
-      const useCase = new UpdateUserUseCase(userRepo, passwordHasher);
+static async updateUser(req: Request, res: Response) {
+  try {
+    const { id } = req.params;
 
-      const updated = await useCase.execute(id, req.body);
-      res.json(updated.toPrimitives());
-    } catch (error: any) {
-      console.error("❌ Error updating user:", error);
-      res.status(400).json({ message: error.message });
+    if (!id) {
+      return res.status(400).json({ message: "User id is required" });
     }
+
+    const useCase = new UpdateUserUseCase(userRepo, passwordHasher);
+    const updated = await useCase.execute(id, req.body);
+    res.json(updated.toPrimitives());
+  } catch (error: any) {
+    console.error("❌ Error updating user:", error);
+    res.status(400).json({ message: error.message });
   }
+}
 
+static async deleteUser(req: Request, res: Response) {
+  try {
+    const { id } = req.params;
 
-  static async deleteUser(req: Request, res: Response) {
-    try {
-      const { id } = req.params; // <-- CORREGIDO
-      const useCase = new DeleteUserUseCase(userRepo);
-      await useCase.execute(id);
-      res.json({ message: "User deleted successfully" });
-    } catch (error: any) {
-      console.error("❌ Error deleting user:", error);
-      res.status(500).json({ message: error.message });
+    if (!id) {
+      return res.status(400).json({ message: "User id is required" });
     }
+
+    const useCase = new DeleteUserUseCase(userRepo);
+    await useCase.execute(id);
+    res.json({ message: "User deleted successfully" });
+  } catch (error: any) {
+    console.error("❌ Error deleting user:", error);
+    res.status(500).json({ message: error.message });
   }
+}
+
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import dojoPhoto from "../../../public/img/dojo-distintivo.png";
 import senseiPhoto from "../../../public/img/sensei1.png"; 
-import { Button } from "../ui/Button/Button";
+import { Button } from "../ui/Button/Button.js";
 import { useNavigate } from "react-router-dom";
 
 export const Home: React.FC = () => {

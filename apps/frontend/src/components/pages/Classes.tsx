@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { ClassAPI } from "../api/ClassApi";
-import { Button } from "../ui/Button/Button"; 
+import { ClassAPI } from "../api/ClassApi.js";
+import { Button } from "../ui/Button/Button.js"; 
 
 interface ClassData {
   _id: string;

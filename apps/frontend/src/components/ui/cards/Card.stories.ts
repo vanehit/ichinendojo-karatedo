@@ -1,10 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Card, type CardProps } from "../components/ui/cards/Card";
-
-// 📸 Importamos imágenes de ejemplo
-import sensei1 from "../../public/img/sensei1.png";
-import alumno1 from "../../public/img/alumno1.jpg";
-import distintivo1 from "../../public/img/distintivo1.jpg";
+import { Card, type CardProps } from "./Card.js";
 
 const meta: Meta<CardProps> = {
   title: "Components/Card",
@@ -22,29 +17,25 @@ const meta: Meta<CardProps> = {
     subtitle: { control: "text" },
     belt: { control: "text" },
     description: { control: "text" },
-    photo: { control: "text" },
   },
 };
 
 export default meta;
 type Story = StoryObj<CardProps>;
 
-/**
- * 🌸 Default card — ejemplo institucional
- */
+// --- Stories ---
+
 export const Default: Story = {
   args: {
     title: "Ichinen Dojo Karate-Do",
     subtitle: "Escuela Shorin Ryu Kaizenkan Argentina",
     description:
       "Entrenamiento físico, mente y espíritu con respeto, disciplina y perseverancia.",
-    photo: distintivo1,
+    photo: "/img/distintivo1.jpg", 
+    variant: "default",
   },
 };
 
-/**
- * 🥋 Card de Sensei — muestra un instructor del dojo
- */
 export const Sensei: Story = {
   args: {
     variant: "sensei",
@@ -53,13 +44,10 @@ export const Sensei: Story = {
     belt: "Cinturón Negro",
     description:
       "Gran Maestro del Karate Shōrin-ryū de Okinawa. Portador del título Hanshi y referente internacional del estilo.",
-    photo: sensei1,
+    photo: "/img/sensei1.png",
   },
 };
 
-/**
- * 👩‍🎓 Card de Alumno — muestra un estudiante del dojo
- */
 export const Alumno: Story = {
   args: {
     variant: "alumno",
@@ -68,6 +56,6 @@ export const Alumno: Story = {
     belt: "Cinturón Verde",
     description:
       "Apasionada por el aprendizaje constante y la disciplina del Karate-Do.",
-    photo: alumno1,
+    photo: "/img/alumno1.jpg",
   },
 };

@@ -33,36 +33,53 @@ export class StudentController {
   }
 
   static async getStudentById(req: Request, res: Response) {
-    try {
-      const { studentId } = req.params;
-      const useCase = new GetStudentByIdUseCase(studentRepo);
-      const student = await useCase.execute(studentId);
-      if (!student) return res.status(404).json({ message: "Student not found" });
-      return res.json(student.toPrimitives());
-    } catch (error: any) {
-      return res.status(500).json({ message: error.message });
-    }
-  }
+  try {
+    const { studentId } = req.params;
 
-  static async updateStudent(req: Request, res: Response) {
-    try {
-      const { studentId } = req.params;
-      const useCase = new UpdateStudentUseCase(studentRepo);
-      const updated = await useCase.execute({ ...req.body, id: studentId });
-      return res.json(updated.toPrimitives());
-    } catch (error: any) {
-      return res.status(400).json({ message: error.message });
+    if (!studentId) {
+      return res.status(400).json({ message: "studentId is required" });
     }
-  }
 
-  static async deleteStudent(req: Request, res: Response) {
-    try {
-      const { studentId } = req.params;
-      const useCase = new DeleteStudentUseCase(studentRepo);
-      await useCase.execute(studentId);
-      return res.json({ message: "Student deleted successfully" });
-    } catch (error: any) {
-      return res.status(500).json({ message: error.message });
-    }
+    const useCase = new GetStudentByIdUseCase(studentRepo);
+    const student = await useCase.execute(studentId);
+
+    if (!student) return res.status(404).json({ message: "Student not found" });
+    return res.json(student.toPrimitives());
+  } catch (error: any) {
+    return res.status(500).json({ message: error.message });
   }
+}
+
+static async updateStudent(req: Request, res: Response) {
+  try {
+    const { studentId } = req.params;
+
+    if (!studentId) {
+      return res.status(400).json({ message: "studentId is required" });
+    }
+
+    const useCase = new UpdateStudentUseCase(studentRepo);
+    const updated = await useCase.execute({ ...req.body, id: studentId });
+    return res.json(updated.toPrimitives());
+  } catch (error: any) {
+    return res.status(400).json({ message: error.message });
+  }
+}
+
+static async deleteStudent(req: Request, res: Response) {
+  try {
+    const { studentId } = req.params;
+
+    if (!studentId) {
+      return res.status(400).json({ message: "studentId is required" });
+    }
+
+    const useCase = new DeleteStudentUseCase(studentRepo);
+    await useCase.execute(studentId);
+    return res.json({ message: "Student deleted successfully" });
+  } catch (error: any) {
+    return res.status(500).json({ message: error.message });
+  }
+}
+
 }

@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "npm run build:domain && nodemon --watch src --ext ts --exec tsx src/index.ts",
     "build:domain": "cd ../../domain && npm run build",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "build": "tsc -b"
   },
   "keywords": [],
   "author": "",

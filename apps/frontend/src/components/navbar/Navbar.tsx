@@ -1,8 +1,8 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import clsx from "clsx";
-import { useAuth } from "../context/AuthContext";
-import { Button } from "../ui/Button/Button";
+import { useAuth } from "../context/AuthContext.js";
+import { Button } from "../ui/Button/Button.js";
 
 export const Navbar: React.FC = () => {
   const { user, logout } = useAuth();

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { userApi, type User } from "../api/userApi";
+import { userApi, type User } from "../api/userApi.js";
 import { Loader2, RefreshCcw } from "lucide-react";
 
 export const Users: React.FC = () => {

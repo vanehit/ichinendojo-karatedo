@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { Navbar } from "../navbar/Navbar";
-import { useAuth } from "../context/AuthContext";
+import { Navbar } from "../navbar/Navbar.js";
+import { useAuth } from "../context/AuthContext.js";
 
 export const AppLayout: React.FC = () => {
   const { user } = useAuth();

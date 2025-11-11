@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { ClassApi } from "../api/ClassApi.js";
+import { ClassAPI } from "../api/ClassApi.js";
+
 
 export function useClasses() {
   const [classes, setClasses] = useState<any[]>([]);
@@ -9,8 +10,8 @@ export function useClasses() {
   useEffect(() => {
     const fetchClasses = async () => {
       try {
-        const data = await ClassApi.getMyClasses();
-        setClasses(data);
+        const data = await ClassAPI.getMyClasses();
+        setClasses(data.data);
       } catch (err: any) {
         setError(err.message || "Error al cargar las clases");
       } finally {

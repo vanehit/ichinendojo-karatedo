@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { studentApi, type Student } from "../api/studentApi";
-import { Card } from "../ui/cards/Card";
+import { studentApi, type Student } from "../api/studentApi.js";
+import { Card } from "../ui/cards/Card.js";
 import { Loader2, RefreshCcw, ArrowLeft } from "lucide-react";
-import { StudentDetails } from "./StudentDetails"; 
+import { StudentDetails } from "./StudentDetails.js"; 
 
 export const Students: React.FC = () => {
   const [students, setStudents] = useState<Student[]>([]);

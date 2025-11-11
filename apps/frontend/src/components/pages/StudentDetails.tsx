@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { TeacherAPI } from "../api/teacherApi";
-import type { FollowUpPrimitives as FollowUp } from "../../../../../domain/src/entities/students/FollowUp.js";
+import { TeacherAPI } from "../api/teacherApi.js";
+import type { FollowUpPrimitives as FollowUp } from "../../../../../domain/dist/entities/students/FollowUp.js";
 import { Button } from "../ui/Button/Button.js";
 
 export const StudentDetails = ({ studentId }: { studentId: string }) => {
