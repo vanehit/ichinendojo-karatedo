@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: mongo_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build:
+      context: .
+      dockerfile: api.dockerfile
+    container_name: backend_app
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/ichinendojo-karatedo_db
+      - PORT=3000
+      - JWT_SECRET=secretkeys
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: .
+      dockerfile: web.dockerfile
+    container_name: frontend_app
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    env_file:
+    - ./apps/frontend/.env.docker
+
+volumes:
+  mongo_data:
